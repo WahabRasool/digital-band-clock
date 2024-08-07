@@ -1,0 +1,95 @@
+div {
+    box-sizing: border-box;
+    transform-style: preserve-3d;
+  }
+  .clock {
+    font-size: 4.25vmin;
+    display: grid;
+    gap: 1.5em;
+    rotate: 1 0 1 -35deg;
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      background-color: hsl(9 100% 51%);
+      border-radius: .5em;
+      width: .1em;
+      height: 8em;
+      transform: 
+        translate(-.35em, -1em) 
+        translateZ(40vmin)
+        rotatex(25deg);
+    }
+  }
+  .hour, .min, .sec {
+    --z: 55vmin;
+    display: flex;
+    position: relative;
+    --clr: hsl(189 100% 51%);
+    --clrs: color-mix(in lab, var(--clr), #fff5);
+    transform: rotatey(calc( -1 * var(--turn)));
+    .num {
+      position: absolute;
+      padding: .3em;
+      width: 2em;
+      background-color: #1f202050;
+      display: grid;
+      place-content: center;
+      color: var(--clr);
+      box-shadow: 0 0 1vmin var(--clrs);
+      border-radius: 50%;
+      transform: 
+        translate(-50%, -50%) 
+        rotatey(calc( var(--i) * 360deg / var(--t)))
+        translateZ(var(--z))
+        rotatex(25deg);
+      text-shadow:
+        .05em .05em .3em var(--clrs),
+        -.05em .05em .3em var(--clrs),
+        .05em -.05em .3em var(--clrs),
+        -.05em -.05em .3em var(--clrs);
+      &.tick {
+        box-shadow: none;
+        background-color: #0000;
+      }
+      
+      &:before {
+        position: absolute;
+        content: '';
+        inset: 0;
+        transform: translatez(-1vmin);
+        //background-color: #1f202070;
+        backdrop-filter: blur(.1em);
+      }
+    }
+  }
+  .half.tick {
+    filter: hue-rotate(90deg);
+  }
+  .hour {
+    --clr: hsl(189 100% 51%);
+    --turn: 10deg;
+    --z: 50vmin;
+  }
+  .min {
+    --clr: hsl(89 100% 51%);
+    --turn: 30deg;
+    --z: 52.5vmin;
+  }
+  .sec {
+    --clr: hsl(280 100% 71%);
+    --turn: 50deg;
+  }
+  
+  
+  
+  body {
+    font-family: system-ui, sans-serif;
+    display: grid;
+    place-content: center;
+    min-height: 100vh;
+    margin:0;
+    background-color: #1f2020;
+    font-family: system-ui;
+    perspective: 300em;
+  }
